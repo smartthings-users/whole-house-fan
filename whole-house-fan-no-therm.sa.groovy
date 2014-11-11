@@ -33,11 +33,7 @@ preferences {
     	input "inTemp", "capability.temperatureMeasurement", title: "Indoor Thermometer"
         input "minTemp", "number", title: "Minimum Indoor Temperature"
         input "fans", "capability.switch", title: "Vent Fan", multiple: true
-    }
-    
-    section("Thermostat") {
-    	input "thermostat", "capability.thermostat", title: "Thermostat"
-    }    
+    }  
 }
 
 def installed() {
@@ -62,18 +58,12 @@ def initialize() {
 }
 
 def checkThings(evt) {
-	def outsideTemp = settings.outTemp.currentValue('temperature')
+    def outsideTemp = settings.outTemp.currentValue('temperature')
     def insideTemp = settings.inTemp.currentValue('temperature')
-    def thermostatMode = settings.thermostat.currentValue('thermostatMode')
     
     log.debug "Inside: $insideTemp, Outside: $outsideTemp, Thermostat: $thermostatMode"
     
     def shouldRun = true;
-    
-    if(thermostatMode != 'off') {
-    	log.debug "Not running due to thermostat mode"
-    	shouldRun = false;
-    }
     
     if(insideTemp < outsideTemp) {
     	log.debug "Not running due to insideTemp > outdoorTemp"
