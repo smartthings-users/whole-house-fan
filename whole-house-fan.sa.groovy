@@ -76,7 +76,7 @@ def checkThings(evt) {
     }
     
     if(insideTemp < outsideTemp) {
-    	log.debug "Not running due to insideTemp > outdoorTemp"
+    	log.debug "Not running due to insideTemp < outdoorTemp"
     	shouldRun = false;
     }
     
